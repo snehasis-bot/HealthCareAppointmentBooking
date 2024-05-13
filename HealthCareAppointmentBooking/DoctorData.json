@@ -1,0 +1,28 @@
+{
+  "doctors": [
+    {
+      "id": "56A41846-26E9-47EB-BE74-EB6A59D68D6C",
+      "name": "Dr. John Smith",
+      "specialty": "Cardiology",
+      "clinic": "Smith Cardiac Clinic",
+      "address": "123 Main Street, Cityville, State, ZIP",
+      "phone": "123-456-7890"
+    },
+    {
+      "id": "7A0D2A58-3E1F-4ED3-B524-5D899B82FCB5",
+      "name": "Dr. Emily Johnson",
+      "specialty": "Pediatrics",
+      "clinic": "Johnson Pediatrics Center",
+      "address": "456 Elm Street, Townsville, State, ZIP",
+      "phone": "456-789-0123"
+    },
+    {
+      "id": "6C84FB90-12C4-11E1-840D-7B25C5EE775A",
+      "name": "Dr. Michael Davis",
+      "specialty": "Orthopedics",
+      "clinic": "Davis OrthoCare",
+      "address": "789 Oak Avenue, Villagetown, State, ZIP",
+      "phone": "789-012-3456"
+    }
+  ]
+}
