@@ -2,7 +2,7 @@
 //  AppointmentViewModel.swift
 //  HealthCareAppointmentBooking
 //
-//  Created by Snehasis Sahoo on 13/5/2024.
+//  Created by Kajal Maskar on 13/5/2024.
 //
 
 import Foundation

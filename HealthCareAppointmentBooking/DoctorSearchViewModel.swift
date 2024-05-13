@@ -2,7 +2,7 @@
 //  DoctorSearchViewModel.swift
 //  HealthCareAppointmentBooking
 //
-//  Created by Kush Mali on 13/5/2024.
+//  Created by Snehasis Sahoo on 13/5/2024.
 //
 
 import Foundation
