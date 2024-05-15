@@ -14,9 +14,11 @@ final class HealthCareDataViewModel : ObservableObject {
     public let container: NSPersistentContainer
     private let healthCareDataContainer = "HealthCareDataModel"
     private let appointmentEntity = "AppointmentEntity"
+    private let userEntity = "UserEntity"
     
     // Published array of AppointmentEntities
     @Published var appointments: [AppointmentEntity] = []
+    @Published var users: [UserEntity] = []
     @Published var errorMessage: String?
 
     // Init loads persistent container and then calls get favourites

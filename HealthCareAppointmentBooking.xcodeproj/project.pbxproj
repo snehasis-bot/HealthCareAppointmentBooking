@@ -21,6 +21,9 @@
 		01F60CE82BF1CE47005AD3EB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CE72BF1CE47005AD3EB /* HomeView.swift */; };
 		01F60CEA2BF1D0EB005AD3EB /* DoctorData.json in Resources */ = {isa = PBXBuildFile; fileRef = 01F60CE92BF1D0EB005AD3EB /* DoctorData.json */; };
 		01F60CEC2BF1D651005AD3EB /* HealthCareDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CEB2BF1D651005AD3EB /* HealthCareDataModel.swift */; };
+		01F60CEE2BF4C2D7005AD3EB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CED2BF4C2D7005AD3EB /* LoginViewModel.swift */; };
+		01F60CF02BF4C3E1005AD3EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CEF2BF4C3E0005AD3EB /* LoginView.swift */; };
+		01F60CF22BF4CF9B005AD3EB /* CreateUserAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CF12BF4CF9B005AD3EB /* CreateUserAccountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		01F60CE72BF1CE47005AD3EB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		01F60CE92BF1D0EB005AD3EB /* DoctorData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DoctorData.json; sourceTree = "<group>"; };
 		01F60CEB2BF1D651005AD3EB /* HealthCareDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCareDataModel.swift; sourceTree = "<group>"; };
+		01F60CED2BF4C2D7005AD3EB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		01F60CEF2BF4C3E0005AD3EB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		01F60CF12BF4CF9B005AD3EB /* CreateUserAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserAccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,9 @@
 				01F60CE72BF1CE47005AD3EB /* HomeView.swift */,
 				01F60CE92BF1D0EB005AD3EB /* DoctorData.json */,
 				01F60CEB2BF1D651005AD3EB /* HealthCareDataModel.swift */,
+				01F60CED2BF4C2D7005AD3EB /* LoginViewModel.swift */,
+				01F60CEF2BF4C3E0005AD3EB /* LoginView.swift */,
+				01F60CF12BF4CF9B005AD3EB /* CreateUserAccountView.swift */,
 			);
 			path = HealthCareAppointmentBooking;
 			sourceTree = "<group>";
@@ -175,8 +184,11 @@
 				01F60CE62BF1CD41005AD3EB /* DoctorSearchViewModel.swift in Sources */,
 				01F60CD82BF1C933005AD3EB /* HealthCareDataModel.xcdatamodeld in Sources */,
 				01F60CEC2BF1D651005AD3EB /* HealthCareDataModel.swift in Sources */,
+				01F60CF22BF4CF9B005AD3EB /* CreateUserAccountView.swift in Sources */,
 				01F60CE02BF1CB7F005AD3EB /* BookingAppointmentView.swift in Sources */,
+				01F60CEE2BF4C2D7005AD3EB /* LoginViewModel.swift in Sources */,
 				01F60CE42BF1CCB3005AD3EB /* DoctorSearchView.swift in Sources */,
+				01F60CF02BF4C3E1005AD3EB /* LoginView.swift in Sources */,
 				01F60CDE2BF1CB32005AD3EB /* AppointmentViewModel.swift in Sources */,
 				01F60CDA2BF1CA21005AD3EB /* HealthCareDataViewModel.swift in Sources */,
 			);

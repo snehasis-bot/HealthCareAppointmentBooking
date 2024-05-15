@@ -8,7 +8,7 @@
 import Foundation
 
 // Model class representing an Appointment
-struct Appointment {
+struct Appointment: Identifiable {
     let id: UUID
     let patientName: String
     let date: Date
@@ -29,4 +29,11 @@ struct Doctor: Identifiable, Decodable {
 
 struct DoctorData: Decodable {
     var doctors: [Doctor]
+}
+
+struct User: Identifiable {
+    let id: UUID
+    let userName: String
+    let password: String
+    let emailID: String
 }

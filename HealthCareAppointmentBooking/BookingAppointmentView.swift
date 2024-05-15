@@ -44,7 +44,7 @@ struct BookAppointmentView: View {
             Picker("Gender", selection: $patientGender) {
                 Text("Female").tag("F")
                 Text("Male").tag("M")
-                Text("Transgender").tag("T")
+                Text("Others").tag("T")
             }
             .pickerStyle(SegmentedPickerStyle())
             TextField("Clinic Address", text: $clinicAddress)
