@@ -15,11 +15,8 @@ struct HomeView: View {
                     .font(.title)
                     .padding()
                 
-                // Create an instance of AppointmentViewModel
-                let appointmentViewModel = AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())
-                
                 // Button to navigate to DoctorSearchView
-                NavigationLink(destination: DoctorSearchView(appointmentViewModel: appointmentViewModel)) {
+                NavigationLink(destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel()))) {
                     Text("Find Practitioner")
                         .padding()
                         .background(Color.blue)
@@ -27,6 +24,15 @@ struct HomeView: View {
                         .cornerRadius(8)
                 }
                 .padding()
+                
+                HStack {
+                    Text("Haven't Logged In yet?").foregroundColor(.gray)
+                    NavigationLink(destination: LoginView()) {
+                        Text("Log In").padding().foregroundColor(.green)
+                    }
+                }
+                .padding(.bottom, 5)
+
             }
         }
     }
