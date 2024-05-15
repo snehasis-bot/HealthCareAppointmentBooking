@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Welcome to the Healthcare Booking App")
+                Text("Welcome to the EasyAppoint")
                     .font(.title)
                     .padding()
                 
@@ -29,5 +29,11 @@ struct HomeView: View {
                 .padding()
             }
         }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }

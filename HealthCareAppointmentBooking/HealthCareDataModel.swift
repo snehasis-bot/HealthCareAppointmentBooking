@@ -8,7 +8,7 @@
 import Foundation
 
 // Model class representing an Appointment
-struct Appointment {
+struct Appointment: Identifiable {
     let id: UUID
     let patientName: String
     let date: Date
