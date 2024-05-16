@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01CB89C72BF64F38002832EE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB89C62BF64F38002832EE /* ProfileView.swift */; };
+		01CB89C92BF65D98002832EE /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB89C82BF65D98002832EE /* GradientBackground.swift */; };
 		01F60CC92BF1C8E3005AD3EB /* HealthCareAppointmentBookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CC82BF1C8E3005AD3EB /* HealthCareAppointmentBookingApp.swift */; };
 		01F60CCB2BF1C8E3005AD3EB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F60CCA2BF1C8E3005AD3EB /* ContentView.swift */; };
 		01F60CCD2BF1C8E5005AD3EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01F60CCC2BF1C8E5005AD3EB /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01CB89C62BF64F38002832EE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		01CB89C82BF65D98002832EE /* GradientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackground.swift; sourceTree = "<group>"; };
 		01F60CC52BF1C8E3005AD3EB /* HealthCareAppointmentBooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthCareAppointmentBooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01F60CC82BF1C8E3005AD3EB /* HealthCareAppointmentBookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCareAppointmentBookingApp.swift; sourceTree = "<group>"; };
 		01F60CCA2BF1C8E3005AD3EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				01F60CED2BF4C2D7005AD3EB /* LoginViewModel.swift */,
 				01F60CEF2BF4C3E0005AD3EB /* LoginView.swift */,
 				01F60CF12BF4CF9B005AD3EB /* CreateUserAccountView.swift */,
+				01CB89C62BF64F38002832EE /* ProfileView.swift */,
+				01CB89C82BF65D98002832EE /* GradientBackground.swift */,
 			);
 			path = HealthCareAppointmentBooking;
 			sourceTree = "<group>";
@@ -178,12 +184,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F60CDC2BF1CB06005AD3EB /* AppointmentView.swift in Sources */,
+				01CB89C92BF65D98002832EE /* GradientBackground.swift in Sources */,
 				01F60CCB2BF1C8E3005AD3EB /* ContentView.swift in Sources */,
 				01F60CC92BF1C8E3005AD3EB /* HealthCareAppointmentBookingApp.swift in Sources */,
 				01F60CE82BF1CE47005AD3EB /* HomeView.swift in Sources */,
 				01F60CE62BF1CD41005AD3EB /* DoctorSearchViewModel.swift in Sources */,
 				01F60CD82BF1C933005AD3EB /* HealthCareDataModel.xcdatamodeld in Sources */,
 				01F60CEC2BF1D651005AD3EB /* HealthCareDataModel.swift in Sources */,
+				01CB89C72BF64F38002832EE /* ProfileView.swift in Sources */,
 				01F60CF22BF4CF9B005AD3EB /* CreateUserAccountView.swift in Sources */,
 				01F60CE02BF1CB7F005AD3EB /* BookingAppointmentView.swift in Sources */,
 				01F60CEE2BF4C2D7005AD3EB /* LoginViewModel.swift in Sources */,

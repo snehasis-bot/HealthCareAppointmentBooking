@@ -19,51 +19,58 @@ struct CreateUserAccountView: View {
     }
 
     var body: some View {
-        VStack {
-            TextField("Username", text: $username)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal)
+        ZStack {
+            GradientBackground()
+                .edgesIgnoringSafeArea(.all)
             
-            SecureField("Password", text: $password)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal)
-
-            TextField("Email", text: $email)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal)
-                .onChange(of: email) { newValue in
-                    isEmailValid = isValidEmail(newValue)
-                }
-                .autocapitalization(.none)
-
-            if !isEmailValid {
-                Text("Please enter a valid email")
-                    .foregroundColor(.red)
+            VStack {
+                Spacer()
+                
+                TextField("Username", text: $username)
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
                     .padding(.horizontal)
-            }
+                
+                SecureField("Password", text: $password)
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
 
-            Button("Create Account") {
-                createUser()
+                TextField("Email", text: $email)
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+                    .onChange(of: email) { newValue in
+                        isEmailValid = isValidEmail(newValue)
+                    }
+                    .autocapitalization(.none)
+
+                if !isEmailValid {
+                    Text("Please enter a valid email")
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
+
+                Button("Create Account") {
+                    createUser()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                .padding(.horizontal)
+                
+                Spacer()
             }
+            .navigationTitle("Create Account")
             .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(8)
-            .padding(.horizontal)
-            
-            Spacer()
+            .background(
+                NavigationLink(destination: LoginView(), isActive: $navigateToLogin) { EmptyView() }
+            )
         }
-        .navigationTitle("Create Account")
-        .padding()
-        .background(
-            NavigationLink(destination: LoginView(), isActive: $navigateToLogin) { EmptyView() }
-        )
     }
 
     private func isValidEmail(_ email: String) -> Bool {
@@ -85,3 +92,4 @@ struct CreateUserAccountView_Previews: PreviewProvider {
         CreateUserAccountView(loginViewModel: LoginViewModel(healthCareDataViewModel: HealthCareDataViewModel()))
     }
 }
+
