@@ -10,30 +10,50 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Welcome to the EasyAppoint")
-                    .font(.title)
-                    .padding()
+            ZStack {
+                GradientBackground() // Apply gradient background
                 
-                // Button to navigate to DoctorSearchView
-                NavigationLink(destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel()))) {
-                    Text("Find Practitioner")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding()
-                
-                HStack {
-                    Text("Haven't Logged In yet?").foregroundColor(.gray)
-                    NavigationLink(destination: LoginView()) {
-                        Text("Log In").padding().foregroundColor(.green)
-                    }
-                }
-                .padding(.bottom, 5)
+                VStack {
+                    Spacer() // Add spacer at the top to push content down
 
+                    VStack {
+                        Text("EasyAppoint")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        Text("Your Gateway to Easy HealthCare Appointment Booking")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                        
+                        // Button to navigate to DoctorSearchView
+                        NavigationLink(destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel()))) {
+                            Text("Find Practitioner")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .padding()
+                        
+                        HStack {
+                            Text("Haven't Logged In yet?").foregroundColor(.gray)
+                            NavigationLink(destination: LoginView()) {
+                                Text("Log In").padding().foregroundColor(.black)
+                            }
+                        }
+                        .padding(.bottom, 5)
+                    }
+                    
+                    Spacer() // Add spacer at the bottom to keep the content centered
+                }
+                .padding(.horizontal)
             }
+            .edgesIgnoringSafeArea(.all) // Ensure the background covers the entire screen
         }
     }
 }
@@ -43,3 +63,4 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+

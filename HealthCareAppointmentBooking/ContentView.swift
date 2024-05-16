@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var appointmentViewModel: AppointmentViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @State private var selectedTab = 0
 
     var body: some View {
@@ -16,13 +17,19 @@ struct ContentView: View {
             VStack {
                 if selectedTab == 0 {
                     HomeView()
-                } else {
+                        .environmentObject(loginViewModel)
+                } else if selectedTab == 1 {
                     AppointmentView(appointmentViewModel: appointmentViewModel)
+                        .environmentObject(loginViewModel)
+                } else if selectedTab == 2 {
+                    ProfileView()
+                        .environmentObject(loginViewModel)
                 }
                 Spacer()
                 navButtons
             }
-           // .navigationBarTitle("HBA")
+            .background(GradientBackground()) // Set background here
+            .navigationBarHidden(true)
         }
     }
 
@@ -45,6 +52,14 @@ struct ContentView: View {
             .padding(.leading, 20)
             
             Spacer()
+            
+            Button(action: { selectedTab = 2 }) {
+                Image(systemName: "person.circle")
+                    .font(.system(size: 28))
+            }
+            .padding(.leading, 20)
+            
+            Spacer()
         }
     }
 }
@@ -54,7 +69,10 @@ struct ContentView_Previews: PreviewProvider {
         let healthCareDataViewModel = HealthCareDataViewModel()
         let doctorSearchViewModel = DoctorSearchViewModel()
         let appointmentViewModel = AppointmentViewModel(healthCareDataViewModel: healthCareDataViewModel, doctorSearchViewModel: doctorSearchViewModel)
+        let loginViewModel = LoginViewModel(healthCareDataViewModel: healthCareDataViewModel)
         
         return ContentView(appointmentViewModel: appointmentViewModel)
+            .environmentObject(loginViewModel)
     }
 }
+
