@@ -16,67 +16,77 @@ struct LoginView: View {
     @State private var validationMessage = ""
 
     var body: some View {
-        VStack {
-            if !loginViewModel.isAuthenticated {
-                // Login fields and buttons
-                TextField("Username", text: $username)
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
+        ZStack {
+            GradientBackground() // Ensure the background covers the entire screen
+            
+            VStack {
+                if !loginViewModel.isAuthenticated {
+                    // Login fields and buttons
+                    TextField("Username", text: $username)
+                        .padding()
+                        .background(Color(UIColor.systemGray6))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
 
-                SecureField("Password", text: $password)
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(UIColor.systemGray6))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
 
-                Text(validationMessage)
-                    .foregroundColor(.red)
-                    .padding(.horizontal)
+                    Text(validationMessage)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
 
-                Button("Login") {
-                    if loginViewModel.authenticateUser(username: username, password: password) {
-                        // Navigate to DoctorSearchView if authentication succeeds
-                        loginViewModel.isAuthenticated = true
-                    } else if loginViewModel.isNewUser {
-                        showAlert = true
-                    } else {
-                        validationMessage = "Invalid password"
+                    HStack {
+                        Button("Login") {
+                            if loginViewModel.authenticateUser(username: username, password: password) {
+                                // Navigate to DoctorSearchView if authentication succeeds
+                                loginViewModel.isAuthenticated = true
+                            } else if loginViewModel.isNewUser {
+                                showAlert = true
+                            } else {
+                                validationMessage = "Invalid password"
+                            }
+                        }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+
+                        // Link to create a user account
+                        NavigationLink(destination: CreateUserAccountView(loginViewModel: loginViewModel)) {
+                            Text("Create Account")
+                                .foregroundColor(.green)
+                                .padding()
+                                .background(Color(UIColor.systemGray6))
+                                .cornerRadius(8)
+                        }
                     }
+                    .padding(.horizontal)
+                    .padding(.top, 10)
+                } else {
+                    // Empty view, navigate to DoctorSearchView
+                    NavigationLink(
+                        destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())).environmentObject(loginViewModel),
+                        isActive: $loginViewModel.isAuthenticated
+                    ) {
+                        EmptyView()
+                    }
+                    .hidden()
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding(.horizontal)
-
-                // Link to create a user account
-                NavigationLink(destination: CreateUserAccountView(loginViewModel: loginViewModel)) {
-                    Text("Create Account")
-                        .foregroundColor(.green)
-                }
-                .padding(.top, 10)
-            } else {
-                // Empty view, navigate to DoctorSearchView
-                NavigationLink(
-                    destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())).environmentObject(loginViewModel),
-                    isActive: $loginViewModel.isAuthenticated
-                ) {
-                    EmptyView()
-                }
-                .hidden()
+            }
+            .navigationTitle("Login")
+            .padding()
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Create Account"),
+                    message: Text("You are a new user. Please create an account."),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
-        .navigationTitle("Login")
-        .padding()
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Create Account"),
-                message: Text("You are a new user. Please create an account."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        .edgesIgnoringSafeArea(.all) // Ensure the background covers the entire screen
     }
 }
 
@@ -88,3 +98,4 @@ struct LoginView_Previews: PreviewProvider {
         }
     }
 }
+

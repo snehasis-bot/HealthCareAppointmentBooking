@@ -12,33 +12,45 @@ struct AppointmentView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
 
     var body: some View {
-        VStack {
-            if let errorMessage = appointmentViewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-            } else {
-                ScrollView {
-                    VStack {
-                        ForEach(appointmentViewModel.appointments, id: \.id) { appointment in
-                            AppointmentRow(appointment: appointment, onDelete: {
-                                if let userID = loginViewModel.currentUser?.userID {
-                                    appointmentViewModel.deleteAppointment(id: appointment.id, userID: userID)
+        ZStack {
+            GradientBackground() // Apply gradient background
+
+            NavigationView {
+                VStack {
+                    if let errorMessage = appointmentViewModel.errorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                    } else {
+                        ScrollView {
+                            VStack(spacing: 10) {  // Add spacing between rows
+                                ForEach(appointmentViewModel.appointments, id: \.id) { appointment in
+                                    AppointmentRow(appointment: appointment, onDelete: {
+                                        if let userID = loginViewModel.currentUser?.userID {
+                                            appointmentViewModel.deleteAppointment(id: appointment.id, userID: userID)
+                                        }
+                                    })
+                                    .background(Color(UIColor.systemGray6))
+                                    .cornerRadius(8)
+                                    .shadow(radius: 3)
+                                    .padding(.horizontal)
                                 }
-                            })
+                            }
+                            .padding(.top)
                         }
                     }
                 }
+                .navigationTitle("Appointments")
+            }
+            .onAppear {
+                // Fetch appointments when the view appears
+                if let userID = loginViewModel.currentUser?.userID {
+                    appointmentViewModel.fetchAppointments(for: userID)
+                } else {
+                    appointmentViewModel.errorMessage = "No user is logged in."
+                }
             }
         }
-        .navigationTitle("Appointments")
-        .onAppear {
-            // Fetch appointments when the view appears
-            if let userID = loginViewModel.currentUser?.userID {
-                appointmentViewModel.fetchAppointments(for: userID)
-            } else {
-                appointmentViewModel.errorMessage = "No user is logged in."
-            }
-        }
+        .edgesIgnoringSafeArea(.all) // Ensure the background covers the entire screen
     }
 }
 
@@ -48,12 +60,13 @@ struct AppointmentRow: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text("Patient: \(appointment.patientName)")
+                    .font(.headline)
                 Text("Gender: \(appointment.gender)")
                 Text("Age: \(appointment.age)")
                 Text("Consulting Doctor: \(appointment.doctorName)")
-                Text("Date: \(appointment.date)")
+                Text("Date: \(appointment.date, formatter: dateFormatter)")
                 Text("Clinic Address: \(appointment.clinicAddress)")
             }
             Spacer()
@@ -65,6 +78,12 @@ struct AppointmentRow: View {
         .padding()
     }
 }
+
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    return formatter
+}()
 
 struct AppointmentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -80,4 +99,5 @@ struct AppointmentView_Previews: PreviewProvider {
             .environmentObject(LoginViewModel(healthCareDataViewModel: HealthCareDataViewModel()))
     }
 }
+
 
