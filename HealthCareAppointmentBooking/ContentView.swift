@@ -22,7 +22,6 @@ struct ContentView: View {
                 Spacer()
                 navButtons
             }
-           // .navigationBarTitle("HBA")
         }
     }
 

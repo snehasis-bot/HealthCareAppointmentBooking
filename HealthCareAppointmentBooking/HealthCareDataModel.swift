@@ -16,6 +16,7 @@ struct Appointment: Identifiable {
     let gender: String
     let age: Int16
     let doctorName: String
+    let userID: UUID
 }
 
 struct Doctor: Identifiable, Decodable {

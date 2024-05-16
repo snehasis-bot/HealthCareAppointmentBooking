@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppointmentView: View {
     @ObservedObject var appointmentViewModel: AppointmentViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
 
     var body: some View {
         VStack {
@@ -20,7 +21,9 @@ struct AppointmentView: View {
                     VStack {
                         ForEach(appointmentViewModel.appointments, id: \.id) { appointment in
                             AppointmentRow(appointment: appointment, onDelete: {
-                                appointmentViewModel.deleteAppointment(id: appointment.id)
+                                if let userID = loginViewModel.currentUser?.userID {
+                                    appointmentViewModel.deleteAppointment(id: appointment.id, userID: userID)
+                                }
                             })
                         }
                     }
@@ -30,7 +33,11 @@ struct AppointmentView: View {
         .navigationTitle("Appointments")
         .onAppear {
             // Fetch appointments when the view appears
-            appointmentViewModel.fetchAppointments()
+            if let userID = loginViewModel.currentUser?.userID {
+                appointmentViewModel.fetchAppointments(for: userID)
+            } else {
+                appointmentViewModel.errorMessage = "No user is logged in."
+            }
         }
     }
 }
@@ -59,19 +66,18 @@ struct AppointmentRow: View {
     }
 }
 
-
 struct AppointmentView_Previews: PreviewProvider {
     static var previews: some View {
         // Create a sample appointment view model with dummy data
         let dummyViewModel = AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())
         let dummyAppointments: [Appointment] = [
-            Appointment(id: UUID(), patientName: "John Doe", date: Date(), clinicAddress: "123 Main St", gender: "M", age: 10, doctorName: "X"),
-            Appointment(id: UUID(), patientName: "Jane Smith", date: Date(), clinicAddress: "456 Elm St",gender: "M", age: 10, doctorName: "Y")
+            Appointment(id: UUID(), patientName: "John Doe", date: Date(), clinicAddress: "123 Main St", gender: "M", age: 10, doctorName: "X", userID: UUID()),
+            Appointment(id: UUID(), patientName: "Jane Smith", date: Date(), clinicAddress: "456 Elm St", gender: "F", age: 25, doctorName: "Y", userID: UUID())
         ]
         dummyViewModel.appointments = dummyAppointments
         
-        // Return the preview of AppointmentView with the sample view model
         return AppointmentView(appointmentViewModel: dummyViewModel)
+            .environmentObject(LoginViewModel(healthCareDataViewModel: HealthCareDataViewModel()))
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct LoginView: View {
-    @StateObject private var loginViewModel = LoginViewModel(healthCareDataViewModel: HealthCareDataViewModel())
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @State private var username = ""
     @State private var password = ""
     @State private var showAlert = false
@@ -42,7 +42,7 @@ struct LoginView: View {
                     } else if loginViewModel.isNewUser {
                         showAlert = true
                     } else {
-                        validationMessage = "Invalid username or password"
+                        validationMessage = "Invalid password"
                     }
                 }
                 .padding()
@@ -60,7 +60,7 @@ struct LoginView: View {
             } else {
                 // Empty view, navigate to DoctorSearchView
                 NavigationLink(
-                    destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())),
+                    destination: DoctorSearchView(appointmentViewModel: AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())).environmentObject(loginViewModel),
                     isActive: $loginViewModel.isAuthenticated
                 ) {
                     EmptyView()
@@ -84,6 +84,7 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             LoginView()
+                .environmentObject(LoginViewModel(healthCareDataViewModel: HealthCareDataViewModel()))
         }
     }
 }

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct BookAppointmentView: View {
     @ObservedObject var appointmentViewModel: AppointmentViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     var doctor: Doctor
-    
+
     @State private var patientName: String = ""
     @State private var patientAge: String = ""
     @State private var patientGender = "F"
@@ -18,12 +19,11 @@ struct BookAppointmentView: View {
     @State private var date = Date()
     @State private var showAlert = false
     @State private var validationMessage = ""
-    
+
     var isSubmitDisabled: Bool {
         return !validationMessage.isEmpty || patientName.isEmpty || patientAge.isEmpty || clinicAddress.isEmpty
-            || (isNumeric(patientName) && isNumeric(patientAge)) || (!isNumeric(patientName) && !isNumeric(patientAge))
     }
-    
+
     var body: some View {
         VStack {
             TextField("Patient Name", text: $patientName)
@@ -33,6 +33,7 @@ struct BookAppointmentView: View {
                 .onChange(of: patientName) { newValue in
                     validatePatientName(newValue)
                 }
+
             TextField("Patient Age", text: $patientAge)
                 .padding()
                 .keyboardType(.numberPad)
@@ -41,51 +42,64 @@ struct BookAppointmentView: View {
                 .onChange(of: patientAge) { newValue in
                     validatePatientAge(newValue)
                 }
+
             Picker("Gender", selection: $patientGender) {
                 Text("Female").tag("F")
                 Text("Male").tag("M")
                 Text("Others").tag("T")
             }
             .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+
             TextField("Clinic Address", text: $clinicAddress)
                 .padding()
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8)
                 .disabled(true)
                 .onAppear {
-                    // Concatenate clinic and address from selectedDoctor
                     clinicAddress = "\(doctor.clinic), \(doctor.address)"
                 }
-            
+
             DatePicker("Date", selection: $date, displayedComponents: .date)
                 .padding()
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8)
-            
+
             Button("Submit") {
                 if validationMessage.isEmpty {
-                    // Pass additional parameters to bookAppointment method
-                    appointmentViewModel.bookAppointment(patientName: patientName,
-                                                          clinicAddress: clinicAddress,
-                                                          date: date,
-                                                            doctorName: doctor.name,
-                                                          age: Int16(patientAge) ?? 0,
-                                                          gender: patientGender)
-                    showAlert = true
+                    if let userID = loginViewModel.currentUser?.userID {
+                        appointmentViewModel.bookAppointment(
+                            patientName: patientName,
+                            clinicAddress: clinicAddress,
+                            date: date,
+                            doctorName: doctor.name,
+                            age: Int16(patientAge) ?? 0,
+                            gender: patientGender,
+                            userID: userID
+                        )
+                        showAlert = true
+                    }
                 }
             }
             .padding()
+            .background(isSubmitDisabled ? Color.gray : Color.blue)
+            .foregroundColor(.white)
             .cornerRadius(8)
             .disabled(isSubmitDisabled)
-            
+
             if !validationMessage.isEmpty {
                 Text(validationMessage)
-                    .foregroundColor(.red) // Display validation message
+                    .foregroundColor(.red)
+                    .padding(.top)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+
+            Spacer()
         }
         .navigationTitle("Book Appointment")
-        .navigationBarTitleDisplayMode(.inline) // Set navigation title display mode
-        .navigationBarItems(trailing: EmptyView())
+        .navigationBarTitleDisplayMode(.inline)
+        .padding()
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Appointment Booked"),
@@ -93,9 +107,8 @@ struct BookAppointmentView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .font(.title)
     }
-    
+
     private func validatePatientName(_ newValue: String) {
         if newValue.isEmpty {
             validationMessage = "Patient Name cannot be empty"
@@ -108,7 +121,6 @@ struct BookAppointmentView: View {
         }
     }
 
-    
     private func validatePatientAge(_ newValue: String) {
         if newValue.isEmpty {
             validationMessage = "Patient Age cannot be empty"
@@ -120,20 +132,15 @@ struct BookAppointmentView: View {
             validationMessage = ""
         }
     }
-    
+
     private func isNumeric(_ value: String) -> Bool {
         return Int(value) != nil
     }
 }
 
-
-
-
-
 struct BookAppointmentView_Previews: PreviewProvider {
     static var previews: some View {
         let appointmentViewModel = AppointmentViewModel(healthCareDataViewModel: HealthCareDataViewModel(), doctorSearchViewModel: DoctorSearchViewModel())
-
         let doctor = Doctor(name: "Dr. Smith", specialty: "Cardiology", clinic: "Cardio Clinic", address: "123 Main St", phone: "123-456-7890")
         
         return BookAppointmentView(appointmentViewModel: appointmentViewModel, doctor: doctor)
