@@ -67,7 +67,7 @@ struct BookAppointmentView: View {
                             clinicAddress = "\(doctor.clinic), \(doctor.address)"
                         }
 
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
+                    DatePicker("Date", selection: $date, in: Date()..., displayedComponents: .date)
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
