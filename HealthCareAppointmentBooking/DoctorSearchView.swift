@@ -83,17 +83,11 @@ struct DoctorSearchView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .background(
-            NavigationLink(
-                destination: selectedDoctor.map { doctor in
-                    BookAppointmentView(appointmentViewModel: appointmentViewModel, doctor: doctor)
-                },
-                isActive: $isNavigating,
-                label: {
-                    EmptyView()
-                }
-            )
-        )
+        .navigationDestination(isPresented: $isNavigating) {
+            if let doctor = selectedDoctor {
+                BookAppointmentView(appointmentViewModel: appointmentViewModel, doctor: doctor)
+            }
+        }
         .background(GradientBackground()) // Set background here
     }
 }
@@ -111,7 +105,7 @@ struct DoctorSearchView_Previews: PreviewProvider {
             Doctor(name: "Dr. Bob Smith", specialty: "Dermatology", clinic: "Skin Clinic", address: "456 Skin Ave", phone: "987-654-3210")
         ]
         
-        return NavigationView {
+        return NavigationStack {
             DoctorSearchView(appointmentViewModel: appointmentViewModel)
                 .environmentObject(loginViewModel)
                 .environmentObject(doctorSearchViewModel)

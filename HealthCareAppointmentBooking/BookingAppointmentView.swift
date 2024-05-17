@@ -37,7 +37,7 @@ struct BookAppointmentView: View {
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
-                        .onChange(of: patientName) { newValue in
+                        .onChange(of: patientName) { oldvalue,newValue in
                             validatePatientName(newValue)
                         }
 
@@ -46,7 +46,7 @@ struct BookAppointmentView: View {
                         .keyboardType(.numberPad)
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
-                        .onChange(of: patientAge) { newValue in
+                        .onChange(of: patientAge) { oldvalue,newValue in
                             validatePatientAge(newValue)
                         }
 
